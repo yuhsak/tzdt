@@ -1,6 +1,6 @@
 {
   "name": "tzdt",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Simple Date wrapper with timezone",
   "author": {
     "name": "Yuhsak Inoue",
