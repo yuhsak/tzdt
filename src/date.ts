@@ -159,38 +159,6 @@ export class TzDate extends Date {
     return unoffset(this.offsetDate, this.getTimezoneOffsetMs()).getTime()
   }
 
-  public getUTCFullYear() {
-    return super.getUTCFullYear()
-  }
-
-  public getUTCMonth() {
-    return super.getUTCMonth()
-  }
-
-  public getUTCDate() {
-    return super.getUTCDate()
-  }
-
-  public getUTCDay() {
-    return super.getUTCDay()
-  }
-
-  public getUTCHours() {
-    return super.getUTCHours()
-  }
-
-  public getUTCMinutes() {
-    return super.getUTCMinutes()
-  }
-
-  public getUTCSeconds() {
-    return super.getUTCSeconds()
-  }
-
-  public getUTCMilliseconds() {
-    return super.getUTCMilliseconds()
-  }
-
   public setFullYear(year: number, month?: number, date?: number) {
     this.offsetDate.setUTCFullYear(
       year,
@@ -203,17 +171,11 @@ export class TzDate extends Date {
   }
 
   public setMonth(month: number, date?: number) {
-    this.offsetDate.setUTCMonth(month, typeof date === 'number' ? date : this.offsetDate.getUTCDate())
-    const time = this.getTime()
-    super.setTime(time)
-    return time
+    return this.setFullYear(this.offsetDate.getUTCFullYear(), month, date)
   }
 
   public setDate(date: number) {
-    this.offsetDate.setUTCDate(date)
-    const time = this.getTime()
-    super.setTime(time)
-    return time
+    return this.setMonth(this.offsetDate.getUTCMonth(), date)
   }
 
   public setHours(hours: number, minutes?: number, seconds?: number, ms?: number) {
@@ -229,28 +191,15 @@ export class TzDate extends Date {
   }
 
   public setMinutes(minutes: number, seconds?: number, ms?: number) {
-    this.offsetDate.setUTCMinutes(
-      minutes,
-      typeof seconds === 'number' ? seconds : this.offsetDate.getUTCSeconds(),
-      typeof ms === 'number' ? ms : this.offsetDate.getUTCMilliseconds(),
-    )
-    const time = this.getTime()
-    super.setTime(time)
-    return time
+    return this.setHours(this.offsetDate.getUTCHours(), minutes, seconds, ms)
   }
 
   public setSeconds(seconds: number, ms?: number) {
-    this.offsetDate.setUTCSeconds(seconds, typeof ms === 'number' ? ms : this.offsetDate.getUTCMilliseconds())
-    const time = this.getTime()
-    super.setTime(time)
-    return time
+    return this.setMinutes(this.offsetDate.getUTCMinutes(), seconds, ms)
   }
 
   public setMilliseconds(ms: number) {
-    this.offsetDate.setUTCMilliseconds(ms)
-    const time = this.getTime()
-    super.setTime(time)
-    return time
+    return this.setSeconds(this.offsetDate.getUTCSeconds(), ms)
   }
 
   public setTime(time: number) {
@@ -262,56 +211,42 @@ export class TzDate extends Date {
   public setUTCFullYear(year: number, month?: number, date?: number) {
     super.setUTCFullYear(
       year,
-      typeof month === 'number' ? month : this.offsetDate.getUTCMonth(),
-      typeof date === 'number' ? date : this.offsetDate.getUTCDate(),
+      typeof month === 'number' ? month : super.getUTCMonth(),
+      typeof date === 'number' ? date : super.getUTCDate(),
     )
     this.offsetDate = offset(this, this.getTimezoneOffsetMs())
     return this.getTime()
   }
 
   public setUTCMonth(month: number, date?: number) {
-    super.setUTCMonth(month, typeof date === 'number' ? date : this.offsetDate.getUTCDate())
-    this.offsetDate = offset(this, this.getTimezoneOffsetMs())
-    return this.getTime()
+    return this.setUTCFullYear(super.getUTCFullYear(), month, date)
   }
 
   public setUTCDate(date: number) {
-    super.setUTCDate(date)
-    this.offsetDate = offset(this, this.getTimezoneOffsetMs())
-    return this.getTime()
+    return this.setUTCMonth(super.getUTCMonth(), date)
   }
 
   public setUTCHours(hours: number, minutes?: number, seconds?: number, ms?: number) {
     super.setUTCHours(
       hours,
-      typeof minutes === 'number' ? minutes : this.offsetDate.getUTCMinutes(),
-      typeof seconds === 'number' ? seconds : this.offsetDate.getUTCSeconds(),
-      typeof ms === 'number' ? ms : this.offsetDate.getUTCMilliseconds(),
+      typeof minutes === 'number' ? minutes : super.getUTCMinutes(),
+      typeof seconds === 'number' ? seconds : super.getUTCSeconds(),
+      typeof ms === 'number' ? ms : super.getUTCMilliseconds(),
     )
     this.offsetDate = offset(this, this.getTimezoneOffsetMs())
     return this.getTime()
   }
 
   public setUTCMinutes(minutes: number, seconds?: number, ms?: number) {
-    super.setUTCMinutes(
-      minutes,
-      typeof seconds === 'number' ? seconds : this.offsetDate.getUTCSeconds(),
-      typeof ms === 'number' ? ms : this.offsetDate.getUTCMilliseconds(),
-    )
-    this.offsetDate = offset(this, this.getTimezoneOffsetMs())
-    return this.getTime()
+    return this.setUTCHours(super.getUTCHours(), minutes, seconds, ms)
   }
 
   public setUTCSeconds(seconds: number, ms?: number) {
-    super.setUTCSeconds(seconds, typeof ms === 'number' ? ms : this.offsetDate.getUTCMilliseconds())
-    this.offsetDate = offset(this, this.getTimezoneOffsetMs())
-    return this.getTime()
+    return this.setUTCMinutes(super.getUTCMinutes(), seconds, ms)
   }
 
   public setUTCMilliseconds(ms: number) {
-    super.setUTCMilliseconds(ms)
-    this.offsetDate = offset(this, this.getTimezoneOffsetMs())
-    return this.getTime()
+    return this.setUTCSeconds(super.getUTCSeconds(), ms)
   }
 
   public toTimeString(): string {
