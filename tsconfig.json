@@ -1,7 +1,5 @@
 {
-  "include": [
-    "src",
-  ],
+  "include": ["src"],
   "compilerOptions": {
     "incremental": true,
     "target": "es6",
@@ -9,12 +7,14 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "outDir": "./lib/common",
+    "declarationDir": "./lib/types",
+    "outDir": "./lib",
     "rootDir": "./src",
-    "tsBuildInfoFile": "./lib/common/.tsbuildinfo",
+    "tsBuildInfoFile": "./lib/.tsbuildinfo",
     "downlevelIteration": true,
     "isolatedModules": true,
     "strict": true,
+    "noUncheckedIndexedAccess": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
     "skipLibCheck": true,

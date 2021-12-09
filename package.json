@@ -12,8 +12,8 @@
     "type": "git",
     "url": "https://github.com/Yuhsak/tzdt.git"
   },
-  "main": "lib/common/index.js",
-  "types": "lib/common/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
   "module": "lib/esm/index.js",
   "files": [
     "lib",
@@ -26,23 +26,33 @@
     "clean:dist": "rimraf lib",
     "clean:test": "rimraf coverage",
     "clean": "run-p clean:*",
-    "test:type": "tsc --noEmit",
-    "test:format": "prettier --check .",
-    "test:impl": "jest",
-    "test": "run-p test:*",
+    "check:tsc": "tsc --noEmit",
+    "check:prettier": "prettier --check .",
+    "check": "run-p check:*",
+    "precheck": "npm run generate",
+    "test": "jest",
+    "pretest": "npm run generate",
     "build:watch": "npm run build -- --watch",
     "build": "tsc -b tsconfig.json tsconfig.esm.json",
-    "prebuild": "run-p clean:dist",
-    "start": "npm run watch",
-    "prepublishOnly": "npm run build"
+    "prebuild": "run-p clean:dist generate",
+    "prepublishOnly": "npm run build",
+    "generate": "node timezone/generate.mjs"
   },
   "devDependencies": {
     "@swc/jest": "^0.1.4",
     "@types/jest": "^27.0.0",
+    "@types/mkdirp": "^1.0.2",
     "jest": "27.0.6",
+    "mkdirp": "^1.0.4",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.2",
     "rimraf": "^3.0.2",
     "typescript": "^4.3.5"
-  }
+  },
+  "sideEffects": [
+    "./lib/timezones/*",
+    "./lib/timezones/**/*",
+    "./lib/esm/timezones/*",
+    "./lib/esm/timezones/**/*"
+  ]
 }

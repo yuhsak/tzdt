@@ -1,4 +1,6 @@
 import { TzDate } from '../src/date'
+import '../src/timezones/Asia/Tokyo'
+import '../src/timezones/UTC'
 
 const date = new Date('2021-12-31T15:00:00Z')
 

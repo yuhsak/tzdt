@@ -1,4 +1,4 @@
-import { timezone, isTimezone } from './timezone'
+import { TIMEZONE, isTimezone } from './timezone'
 import type { Timezone } from './timezone'
 
 import { m2ms, toTimeString, toDateString, toString, toISOString, offset, unoffset } from './util'
@@ -80,25 +80,25 @@ export class TzDate extends Date {
         this.timezoneOffset = date.timezoneOffset
       } else {
         this.timezoneOffset =
-          typeof tzOrMonth === 'number' ? tzOrMonth : isTimezone(tzOrMonth) ? timezone[tzOrMonth] : 0
+          typeof tzOrMonth === 'number' ? tzOrMonth : isTimezone(tzOrMonth) ? TIMEZONE[tzOrMonth] : 0
       }
     } else if (date instanceof Date) {
       this.timezoneOffset =
         typeof tzOrMonth === 'number'
           ? tzOrMonth
           : typeof tzOrMonth === 'string' && isTimezone(tzOrMonth)
-          ? timezone[tzOrMonth]
+          ? TIMEZONE[tzOrMonth]
           : 0
     } else if (typeof date === 'string') {
       this.timezoneOffset = isTimezone(date)
-        ? timezone[date]
+        ? TIMEZONE[date]
         : typeof tzOrMonth === 'number'
         ? tzOrMonth
         : typeof tzOrMonth === 'string' && isTimezone(tzOrMonth)
-        ? timezone[tzOrMonth]
+        ? TIMEZONE[tzOrMonth]
         : 0
     } else if (typeof date === 'number' && typeof tzOrMonth === 'string' && isTimezone(tzOrMonth)) {
-      this.timezoneOffset = timezone[tzOrMonth]
+      this.timezoneOffset = TIMEZONE[tzOrMonth]
     } else {
       this.timezoneOffset = 0
     }
@@ -118,7 +118,9 @@ export class TzDate extends Date {
 
   public setTimezoneOffset(offsetMinutesOrTimezone: number | Timezone) {
     this.timezoneOffset =
-      typeof offsetMinutesOrTimezone === 'number' ? offsetMinutesOrTimezone : timezone[offsetMinutesOrTimezone]
+      typeof offsetMinutesOrTimezone === 'string' && isTimezone(offsetMinutesOrTimezone)
+        ? TIMEZONE[offsetMinutesOrTimezone]
+        : offsetMinutesOrTimezone
     this.offsetDate = offset(this, this.getTimezoneOffsetMs())
     return this.getTime()
   }
@@ -266,6 +268,6 @@ export class TzDate extends Date {
   }
 
   public toJSON(): string {
-    return this.toISOString()
+    return toISOString(this)
   }
 }
