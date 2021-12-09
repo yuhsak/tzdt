@@ -12,6 +12,7 @@ npm install tzdt
 
 ```ts
 import { TzDate } from 'tzdt'
+import 'tzdt/lib/timezones/Asia/Tokyo'
 
 const utc = new TzDate('2020-12-31T15:30:20Z')
 console.log(utc.getFullYear()) //2020
@@ -26,6 +27,8 @@ console.log(jst.toISOString()) //'2021-01-01T00:30:20.000+09:00'
 
 ```ts
 import { TzDate } from 'tzdt'
+import 'tzdt/lib/timezones/UTC'
+import 'tzdt/lib/timezones/Asia/Tokyo'
 
 const date = new Date()
 
