@@ -1,6 +1,6 @@
 {
   "name": "tzdt",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Simple Date wrapper with timezone",
   "author": {
     "name": "Yuhsak Inoue",
@@ -13,7 +13,7 @@
     "url": "https://github.com/Yuhsak/tzdt.git"
   },
   "main": "lib/index.js",
-  "types": "lib/types/index.d.ts",
+  "types": "lib/index.d.ts",
   "module": "lib/esm/index.js",
   "files": [
     "lib",

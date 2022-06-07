@@ -3,9 +3,6 @@
   "compilerOptions": {
     "module": "esnext",
     "outDir": "./lib/esm",
-    "declarationDir": null,
-    "declaration": false,
-    "declarationMap": false,
     "tsBuildInfoFile": "./lib/esm/.tsbuildinfo"
   }
 }

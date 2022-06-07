@@ -7,7 +7,6 @@
     "declaration": true,
     "declarationMap": true,
     "sourceMap": true,
-    "declarationDir": "./lib/types",
     "outDir": "./lib",
     "rootDir": "./src",
     "tsBuildInfoFile": "./lib/.tsbuildinfo",
