@@ -70,7 +70,7 @@ export class TzDate extends Date {
     }
 
     if (date instanceof TzDate && typeof tzOrMonth === 'undefined') {
-      this.offsetDate = date.offsetDate
+      this.offsetDate = new Date(date.offsetDate)
     } else {
       this.offsetDate = new Date(this)
     }
